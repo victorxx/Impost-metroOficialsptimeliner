@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Define o conjunto de caracteres -->
+  <meta charset="UTF-8">
+
+  <!-- Responsividade para dispositivos móveis -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Título da aba do navegador -->
+  <title>Impostômetro Oficial em Tempo Real</title>
+
+  <!-- Meta tags de SEO -->
+  <meta name="description" content="Veja o Impostômetro em tempo real direto de São Paulo, com notícias atualizadas e alertas importantes.">
+  <meta name="keywords" content="Impostos, Impostômetro, São Paulo, Brasil, tributos, tempo real, economia">
+  <meta name="author" content="Seu Nome ou Empresa">
+  <meta name="robots" content="index, follow">
+
+  <!-- Meta tags Open Graph (compartilhamento em redes sociais) -->
+  <meta property="og:title" content="Impostômetro Oficial">
+  <meta property="og:description" content="Acompanhe o valor de impostos pagos no Brasil em tempo real.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content=""> <!-- Atualize com sua URL real -->
+  <meta property="og:image" content="https://seusite.com/imagem.jpg"> <!-- Atualize com imagem válida -->
+
+  <!-- Estilo CSS com dark mode -->
+  <style>
+    /* Estilo global com fundo escuro e texto claro */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212; /* fundo escuro */
+      color: #e0e0e0; /* texto claro */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Cabeçalho da página */
+    header {
+      background-color: #1f1f1f;
+      color: #00bcd4;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Container central para conteúdo */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    /* Iframe do impostômetro */
+    #impostometro {
+      display: block;
+      margin: 0 auto 2rem;
+      border: none;
+    }
+
+    /* Notícias */
+    #noticias {
+      margin-top: 2rem;
+    }
+
+    #noticias h2 {
+      margin-bottom: 1rem;
+      color: #4dd0e1;
+    }
+
+    #noticias ul {
+      padding-left: 1.5rem;
+    }
+
+    #noticias li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Propaganda piscante */
+    #propaganda {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: yellow;
+      color: red;
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      border: 3px solid red;
+      z-index: 9999;
+      animation: piscar 1s infinite;
+    }
+
+    @keyframes piscar {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Estilo da seção de vídeo */
+    #videos h2 {
+      color: #4dd0e1;
+      margin-bottom: 1rem;
+    }
+
+    #video-container {
+      text-align: center;
+    }
+
+    #video-container button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #00bcd4;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    #video-container button:hover {
+      background-color: #0097a7;
+    }
+
+    /* Estilo para data e hora */
+    #data-hora {
+      font-size: 1.2rem;
+      color: #4dd0e1;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      #impostometro {
+        width: 100%;
+        height: auto;
+      }
+
+      #propaganda {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Cabeçalho principal -->
+  <header>
+    <h1>Impostômetro Oficial de São Paulo</h1>
+  </header>
+
+  <!-- Exibição da data e hora atual -->
+  <div class="container" style="text-align:center; margin-top: 1rem;">
+    <p id="data-hora"></p>
+  </div>
+
+  <!-- Seção de vídeo YouTube com botão de troca -->
+  <div class="container" id="videos">
+    <h2>Vídeo Recomendado</h2>
+    <div id="video-container">
+      <iframe id="video-frame" width="560" height="315"
+        src="https://www.youtube.com/embed/yFu6VDlv6cU"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <br>
+      <button onclick="trocarVideo()">▶️ Ver outro vídeo</button>
+    </div>
+  </div>
+
+  <!-- Container principal com impostômetro e notícias -->
+  <div class="container">
+
+    <!-- Impostômetro oficial -->
+    <iframe
+      id="impostometro"
+      src="https://impostometro.com.br/widget/contador/"
+      width="728"
+      height="228"
+      scrolling="no"
+      frameborder="0">
+    </iframe>
+
+    <!-- Notícias dinâmicas -->
+    <div id="noticias">
+      <h2>Últimas Notícias</h2>
+      <ul id="lista-noticias"></ul>
+    </div>
+  </div>
+
+  <!-- Propaganda piscante no centro -->
+  <div id="propaganda">
+    🎯 <a href="#" target="_blank" id="novo">CONFERIR</a>
+  </div>
+
+  <!-- Script: adiciona notícias dinamicamente -->
+  <script>
+    const noticias = [
+      "Governo discute novas propostas de reforma tributária.",
+      "Arrecadação federal atinge recorde histórico em 2025.",
+      "Impostos pagos superam R$ 2 trilhões no primeiro semestre.",
+      "Especialistas alertam sobre aumento da carga tributária.",
+      "Setor empresarial pressiona por simplificação do sistema tributário.",
+      "Senado aprova medida que amplia isenção de imposto de renda.",
+      "Ministério da Fazenda divulga novo cronograma da reforma fiscal.",
+      "Estudo revela que brasileiros trabalham 5 meses por ano só para pagar impostos.",
+      "Carga tributária brasileira é a maior da América Latina, aponta pesquisa.",
+      "Nova proposta unifica tributos federais e estaduais em um único imposto.",
+      "Câmara debate imposto sobre grandes fortunas ainda em 2025.",
+      "Pequenas empresas reclamam de burocracia e alta carga tributária.",
+      "Exportações brasileiras recebem incentivo fiscal para 2025.",
+      "Reforma prevê cashback de impostos para população de baixa renda.",
+      "Receita Federal intensifica fiscalização sobre sonegadores.",
+      "Proposta de simplificação do ICMS ganha apoio de governadores.",
+      "Empresários pedem estabilidade tributária para planejar investimentos.",
+      "Economistas destacam impacto dos impostos indiretos sobre os mais pobres.",
+      "Nova tabela do imposto de renda pode beneficiar 13 milhões de contribuintes.",
+      "Tributos sobre combustíveis voltam a ser discutidos após alta nos preços."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const lista = document.getElementById("lista-noticias");
+      noticias.forEach(texto => {
+        const li = document.createElement("li");
+        li.textContent = texto;
+        lista.appendChild(li);
+      });
+    });
+  </script>
+
+  <!-- Script: troca de links na propaganda automaticamente -->
+  <script>
+    const links = [
+      "https://hostinger.com.br?REFERRALCODE=SSNVICTORXU8",
+      "https://geocredibnkvitoria.com/",
+      "https://vpserp.vercel.app/",
+      "https://creditopessoal.vercel.app/",
+      "https://brasilbrasileiross.blogspot.com/",
+      "https://stfly.biz/7MNLF",
+      "https://www.espiritosanto-es.com.br/linhadotempovitoria/",
+      "https://piadasrepositorio.vercel.app/",
+      "https://www.youtube.com/watch?v=gBclanEnn88",
+      "https://ocomerciobrasileironoticia.blogspot.com/2025/05/erp-profissional-para-empresas.html",
+      "https://www.youtube.com/@gamenologia",
+      "https://jogosantigos472302513.wordpress.com/maquinas-vps-temos-todas-as-opcoes-de-maqinas-para-voce/",
+      "https://bibliadonline.netlify.app/",
+      "https://www.larissasaib.com.br/",
+      "https://remarkable-gelato-4db597.netlify.app/consorciopagina.html",
+      "https://www.airbnb.com.br/r/saibvictore?s=6&t=061n0g"
+    ];
+
+    function mudar() {
+      const randomIndex = Math.floor(Math.random() * links.length);
+      document.getElementById('novo').href = links[randomIndex];
+    }
+
+    // Troca o link a cada 3 segundos
+    setInterval(mudar, 0.3);
+  </script>
+
+  <!-- Script: troca de vídeo ao clicar no botão -->
+  <script>
+    const videoIDs = [
+      "AGg5QbA7Lkw",
+      "1NFwWe2HQG0",
+      "gBclanEnn88",
+      "NH70sItLwPY",
+      "8CbsQoiuKbw"
+    ];
+
+    let indiceAtual = 0;
+
+    function trocarVideo() {
+      indiceAtual = (indiceAtual + 1) % videoIDs.length;
+      document.getElementById("video-frame").src = `https://www.youtube.com/embed/${videoIDs[indiceAtual]}`;
+    }
+  </script>
+
+  <!-- Script: Atualiza data e hora a cada segundo -->
+  <script>
+    function atualizarDataHora() {
+      const elemento = document.getElementById("data-hora");
+      const agora = new Date();
+
+      // Formata a data no padrão brasileiro: dia/mês/ano
+      const dia = String(agora.getDate()).padStart(2, '0');
+      const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Meses começam do zero
+      const ano = agora.getFullYear();
+
+      // Formata a hora, minuto e segundo com dois dígitos
+      const hora = String(agora.getHours()).padStart(2, '0');
+      const minuto = String(agora.getMinutes()).padStart(2, '0');
+      const segundo = String(agora.getSeconds()).padStart(2, '0');
+
+      // Monta a string de data e hora
+      const dataHoraFormatada = `Hoje é ${dia}/${mes}/${ano} - Hora atual: ${hora}:${minuto}:${segundo}`;
+
+      elemento.textContent = dataHoraFormatada;
+    }
+
+    // Atualiza a cada segundo
+    setInterval(atualizarDataHora, 1000);
+
+    // Atualiza imediatamente ao carregar
+    document.addEventListener('DOMContentLoaded', atualizarDataHora);
+  </script>
+
+</body>
+</html>
