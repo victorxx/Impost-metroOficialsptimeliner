@@ -122,6 +122,15 @@
       background-color: #0097a7;
     }
 
+    /* Estilo para data e hora */
+    #data-hora {
+      font-size: 1.2rem;
+      color: #4dd0e1;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
     /* Responsividade */
     @media (max-width: 768px) {
       #impostometro {
@@ -143,6 +152,11 @@
   <header>
     <h1>Impostômetro Oficial de São Paulo</h1>
   </header>
+
+  <!-- Exibição da data e hora atual -->
+  <div class="container" style="text-align:center; margin-top: 1rem;">
+    <p id="data-hora"></p>
+  </div>
 
   <!-- Seção de vídeo YouTube com botão de troca -->
   <div class="container" id="videos">
@@ -247,7 +261,7 @@
     }
 
     // Troca o link a cada 3 segundos
-    setInterval(mudar, 3000);
+    setInterval(mudar, 0.3);
   </script>
 
   <!-- Script: troca de vídeo ao clicar no botão -->
@@ -267,5 +281,35 @@
       document.getElementById("video-frame").src = `https://www.youtube.com/embed/${videoIDs[indiceAtual]}`;
     }
   </script>
+
+  <!-- Script: Atualiza data e hora a cada segundo -->
+  <script>
+    function atualizarDataHora() {
+      const elemento = document.getElementById("data-hora");
+      const agora = new Date();
+
+      // Formata a data no padrão brasileiro: dia/mês/ano
+      const dia = String(agora.getDate()).padStart(2, '0');
+      const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Meses começam do zero
+      const ano = agora.getFullYear();
+
+      // Formata a hora, minuto e segundo com dois dígitos
+      const hora = String(agora.getHours()).padStart(2, '0');
+      const minuto = String(agora.getMinutes()).padStart(2, '0');
+      const segundo = String(agora.getSeconds()).padStart(2, '0');
+
+      // Monta a string de data e hora
+      const dataHoraFormatada = `Hoje é ${dia}/${mes}/${ano} - Hora atual: ${hora}:${minuto}:${segundo}`;
+
+      elemento.textContent = dataHoraFormatada;
+    }
+
+    // Atualiza a cada segundo
+    setInterval(atualizarDataHora, 1000);
+
+    // Atualiza imediatamente ao carregar
+    document.addEventListener('DOMContentLoaded', atualizarDataHora);
+  </script>
+
 </body>
 </html>
