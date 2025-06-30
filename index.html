@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Define o conjunto de caracteres -->
+  <!-- Define o conjunto de caracteres como UTF-8 (suporte a acentos e símbolos) -->
   <meta charset="UTF-8">
 
-  <!-- Responsividade para dispositivos móveis -->
+  <!-- Responsividade: adapta o layout a diferentes tamanhos de tela -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Título da aba do navegador -->
+  <!-- Título que aparece na aba do navegador -->
   <title>Impostômetro Oficial em Tempo Real</title>
 
-  <!-- Meta tags de SEO -->
+  <!-- Tags de SEO para melhor indexação no Google -->
   <meta name="description" content="Veja o Impostômetro em tempo real direto de São Paulo, com notícias atualizadas e alertas importantes.">
   <meta name="keywords" content="Impostos, Impostômetro, São Paulo, Brasil, tributos, tempo real, economia">
   <meta name="author" content="Seu Nome ou Empresa">
   <meta name="robots" content="index, follow">
 
-  <!-- Meta tags Open Graph (compartilhamento em redes sociais) -->
+  <!-- Informações para compartilhamento em redes sociais -->
   <meta property="og:title" content="Impostômetro Oficial">
   <meta property="og:description" content="Acompanhe o valor de impostos pagos no Brasil em tempo real.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content=""> <!-- Atualize com sua URL real -->
-  <meta property="og:image" content="https://seusite.com/imagem.jpg"> <!-- Atualize com imagem válida -->
+  <meta property="og:url" content=""> <!-- Atualize com a URL real -->
+  <meta property="og:image" content="https://seusite.com/imagem.jpg"> <!-- Atualize com uma imagem válida -->
 
-  <!-- Estilo CSS com dark mode -->
+  <!-- Estilo CSS da página com suporte a dark mode -->
   <style>
-    /* Estilo global com fundo escuro e texto claro */
+    /* Corpo do site com fundo escuro e texto claro */
     body {
       font-family: Arial, sans-serif;
-      background-color: #121212; /* fundo escuro */
-      color: #e0e0e0; /* texto claro */
+      background-color: #121212;
+      color: #e0e0e0;
       margin: 0;
       padding: 0;
     }
 
-    /* Cabeçalho da página */
+    /* Cabeçalho do site */
     header {
       background-color: #1f1f1f;
       color: #00bcd4;
@@ -42,9 +42,10 @@
       padding: 1rem;
     }
 
-    /* Container central para conteúdo */
+    /* Container central para o conteúdo */
     .container {
-      max-width: 900px;
+      width: 95%;
+      max-width: 960px;
       margin: 2rem auto;
       background: #1e1e1e;
       padding: 2rem;
@@ -52,14 +53,17 @@
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
     }
 
-    /* Iframe do impostômetro */
+    /* Estilo do iframe do impostômetro */
     #impostometro {
+      width: 100%;
+      max-width: 728px;
+      height: auto;
       display: block;
       margin: 0 auto 2rem;
       border: none;
     }
 
-    /* Notícias */
+    /* Seção de notícias */
     #noticias {
       margin-top: 2rem;
     }
@@ -75,54 +79,43 @@
 
     #noticias li {
       margin-bottom: 0.5rem;
+      line-height: 1.4;
     }
 
-    /* Propaganda piscante */
-    #propaganda {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: yellow;
-      color: red;
-      font-weight: bold;
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
-      border: 3px solid red;
-      z-index: 9999;
-      animation: piscar 1s infinite;
-    }
-
-    @keyframes piscar {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Estilo da seção de vídeo */
+    /* Seção de vídeos */
     #videos h2 {
       color: #4dd0e1;
       margin-bottom: 1rem;
+      text-align: center;
     }
 
     #video-container {
       text-align: center;
     }
 
+    #video-container iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border: none;
+    }
+
     #video-container button {
       margin-top: 1rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       background-color: #00bcd4;
       color: #fff;
       border: none;
       cursor: pointer;
       border-radius: 4px;
+      font-size: 1rem;
     }
 
     #video-container button:hover {
       background-color: #0097a7;
     }
 
-    /* Estilo para data e hora */
+    /* Exibição da data e hora */
     #data-hora {
       font-size: 1.2rem;
       color: #4dd0e1;
@@ -131,16 +124,63 @@
       margin-top: 1rem;
     }
 
-    /* Responsividade */
+    /* Propaganda piscante fixa no canto superior direito */
+    #propaganda {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: yellow;
+      color: red;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border: 3px solid red;
+      z-index: 9999;
+      animation: piscar 1s infinite;
+      border-radius: 5px;
+    }
+
+    #propaganda a {
+      color: red;
+      text-decoration: none;
+    }
+
+    /* Animação de piscar */
+    @keyframes piscar {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Estilos para dispositivos menores */
     @media (max-width: 768px) {
-      #impostometro {
-        width: 100%;
+      .container {
+        padding: 1rem;
+      }
+
+      #video-container iframe {
         height: auto;
       }
 
-      #propaganda {
+      #video-container button {
+        width: 100%;
         font-size: 1rem;
-        padding: 1rem;
+      }
+
+      #propaganda {
+        position: static;
+        margin: 1rem auto;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      #data-hora {
+        font-size: 1rem;
       }
     }
   </style>
@@ -148,36 +188,30 @@
 
 <body>
 
-  <!-- Cabeçalho principal -->
+  <!-- Cabeçalho do site -->
   <header>
     <h1>Impostômetro Oficial de São Paulo</h1>
   </header>
 
-  <!-- Exibição da data e hora atual -->
+  <!-- Mostra a data e hora atual -->
   <div class="container" style="text-align:center; margin-top: 1rem;">
     <p id="data-hora"></p>
   </div>
 
-  <!-- Seção de vídeo YouTube com botão de troca -->
+  <!-- Seção de vídeo com botão para trocar -->
   <div class="container" id="videos">
     <h2>Vídeo Recomendado</h2>
     <div id="video-container">
-      <iframe id="video-frame" width="560" height="315"
-        src="https://www.youtube.com/embed/yFu6VDlv6cU"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+      <iframe id="video-frame" src="https://www.youtube.com/embed/yFu6VDlv6cU" allowfullscreen></iframe>
       <br>
       <button onclick="trocarVideo()">▶️ Ver outro vídeo</button>
     </div>
   </div>
 
-  <!-- Container principal com impostômetro e notícias -->
+  <!-- Container com o impostômetro e notícias -->
   <div class="container">
 
-    <!-- Impostômetro oficial -->
+    <!-- Iframe do impostômetro oficial -->
     <iframe
       id="impostometro"
       src="https://impostometro.com.br/widget/contador/"
@@ -187,19 +221,19 @@
       frameborder="0">
     </iframe>
 
-    <!-- Notícias dinâmicas -->
+    <!-- Lista de notícias adicionadas via JS -->
     <div id="noticias">
       <h2>Últimas Notícias</h2>
       <ul id="lista-noticias"></ul>
     </div>
   </div>
 
-  <!-- Propaganda piscante no centro -->
+  <!-- Propaganda piscante com link rotativo -->
   <div id="propaganda">
     🎯 <a href="#" target="_blank" id="novo">CONFERIR</a>
   </div>
 
-  <!-- Script: adiciona notícias dinamicamente -->
+  <!-- Script: adiciona notícias na lista automaticamente -->
   <script>
     const noticias = [
       "Governo discute novas propostas de reforma tributária.",
@@ -224,6 +258,7 @@
       "Tributos sobre combustíveis voltam a ser discutidos após alta nos preços."
     ];
 
+    // Insere cada notícia como um item <li> na lista
     document.addEventListener("DOMContentLoaded", function () {
       const lista = document.getElementById("lista-noticias");
       noticias.forEach(texto => {
@@ -234,7 +269,7 @@
     });
   </script>
 
-  <!-- Script: troca de links na propaganda automaticamente -->
+  <!-- Script: altera automaticamente o link da propaganda -->
   <script>
     const links = [
       "https://hostinger.com.br?REFERRALCODE=SSNVICTORXU8",
@@ -255,16 +290,17 @@
       "https://www.airbnb.com.br/r/saibvictore?s=6&t=061n0g"
     ];
 
+    // Escolhe aleatoriamente um link e aplica ao botão
     function mudar() {
       const randomIndex = Math.floor(Math.random() * links.length);
       document.getElementById('novo').href = links[randomIndex];
     }
 
-    // Troca o link a cada 3 segundos
+    // Atualiza o link a cada 300 milissegundos
     setInterval(mudar, 300);
   </script>
 
-  <!-- Script: troca de vídeo ao clicar no botão -->
+  <!-- Script: troca o vídeo do YouTube ao clicar no botão -->
   <script>
     const videoIDs = [
       "AGg5QbA7Lkw",
@@ -276,38 +312,33 @@
 
     let indiceAtual = 0;
 
+    // Troca para o próximo vídeo da lista
     function trocarVideo() {
       indiceAtual = (indiceAtual + 1) % videoIDs.length;
       document.getElementById("video-frame").src = `https://www.youtube.com/embed/${videoIDs[indiceAtual]}`;
     }
   </script>
 
-  <!-- Script: Atualiza data e hora a cada segundo -->
+  <!-- Script: exibe data e hora em tempo real -->
   <script>
     function atualizarDataHora() {
       const elemento = document.getElementById("data-hora");
       const agora = new Date();
 
-      // Formata a data no padrão brasileiro: dia/mês/ano
       const dia = String(agora.getDate()).padStart(2, '0');
-      const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Meses começam do zero
+      const mes = String(agora.getMonth() + 1).padStart(2, '0');
       const ano = agora.getFullYear();
 
-      // Formata a hora, minuto e segundo com dois dígitos
       const hora = String(agora.getHours()).padStart(2, '0');
       const minuto = String(agora.getMinutes()).padStart(2, '0');
       const segundo = String(agora.getSeconds()).padStart(2, '0');
 
-      // Monta a string de data e hora
       const dataHoraFormatada = `Hoje é ${dia}/${mes}/${ano} - Hora atual: ${hora}:${minuto}:${segundo}`;
-
       elemento.textContent = dataHoraFormatada;
     }
 
     // Atualiza a cada segundo
     setInterval(atualizarDataHora, 1000);
-
-    // Atualiza imediatamente ao carregar
     document.addEventListener('DOMContentLoaded', atualizarDataHora);
   </script>
 
